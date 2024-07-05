@@ -47,10 +47,10 @@ public class Main {
             StudentManagementMenu.studentManagementMenu();
                 break;
             case 3:
-
+            ScheduleManagementMenu.scheduleManagementMenu();
                 break;
             case 4:
-
+            CourseManagementMenu.courseManagementMenu();
                 break;
             case 5:
                 System.out.println("Exiting program...");

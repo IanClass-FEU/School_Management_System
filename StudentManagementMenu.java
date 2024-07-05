@@ -405,7 +405,7 @@ public class StudentManagementMenu {
         @Override
         public String toString() {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            return id + "," + lastName + "," + firstName + "," + middleName + "," + gender + "," + formatter.format(birthday) + "," + address + "," + degreeProgram + "," + yearLevel;
+            return id + " - " + lastName + "," + firstName + "," + middleName + " - " + gender + " - " + formatter.format(birthday) + " - " + address + " - " + degreeProgram + " - " + yearLevel;
         }
     }
 

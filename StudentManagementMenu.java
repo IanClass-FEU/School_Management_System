@@ -75,6 +75,11 @@ public class StudentManagementMenu {
         System.out.print("Enter student ID: ");
         String id = getInput();
 
+        if (!isValidStudentId(id)) {
+            System.out.println("Invalid student ID. The ID must be a 6-digit number.");
+            return;
+        }
+
         if (isDuplicateStudent(id)) {
             System.out.println("Student with ID " + id + " already exists.");
             return;
@@ -122,6 +127,10 @@ public class StudentManagementMenu {
             }
         }
         return false;
+    }
+
+    private static boolean isValidStudentId(String id) {
+        return id.matches("\\d{6}");
     }
 
     private static void viewStudentList() {

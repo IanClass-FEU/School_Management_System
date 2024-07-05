@@ -42,16 +42,15 @@ public class Main {
     private static void handleChoice(int choice, Scanner scanner) {
         switch (choice) {
             case 1:
-                enrolmentMenu(scanner);
                 break;
             case 2:
-                studentManagementMenu(scanner);
+            StudentManagementMenu.studentManagementMenu();
                 break;
             case 3:
-                scheduleManagementMenu(scanner);
+
                 break;
             case 4:
-                courseManagementMenu(scanner);
+
                 break;
             case 5:
                 System.out.println("Exiting program...");
@@ -60,6 +59,7 @@ public class Main {
                 System.out.println("Invalid choice. Please try again.");
         }
     }
+
 
     private static void clearScreen() {
         try {
@@ -77,3 +77,4 @@ public class Main {
     }
 
 }
+

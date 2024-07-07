@@ -1,29 +1,29 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+class Course {
+    private String code;
+    private String name;
+    private int units;
+    private int yearLevel;
 
-class Enrollment {
-    private final Student student;
-    private final List<Course> enrolledCourses;
-
-    public Enrollment(Student student) {
-        this.student = student;
-        this.enrolledCourses = new ArrayList<>();
+    public Course(String code, String name, int units, int yearLevel) {
+        this.code = code;
+        this.name = name;
+        this.units = units;
+        this.yearLevel = yearLevel;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getCode() {
+        return code;
     }
 
-    public boolean enrollCourse(Course course) {
-        if (enrolledCourses.contains(course)) {
-            return false; // Course already enrolled
-        }
-        enrolledCourses.add(course);
-        return true;
+    public String getName() {
+        return name;
     }
 
-    public List<Course> getEnrolledCourses() {
-        return Collections.unmodifiableList(enrolledCourses);
+    public int getUnits() {
+        return units;
+    }
+
+    public int getYearLevel() {
+        return yearLevel;
     }
 }

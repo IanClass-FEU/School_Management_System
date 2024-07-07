@@ -1,13 +1,17 @@
 import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
+
 public class EnrollmentSystem {
     private static List<Student> students = new ArrayList<>();
     private static List<Course> courses = new ArrayList<>();
-    private static List<Enrollment> enrollments = new ArrayList<>();
+    private static List<Student> enrolledStudents = new ArrayList<>();
 
     public static void main(String[] args) {
         loadData();
+        loadEnrollees();
         displayMenu();
+        saveEnrollees();
     }
 
     private static void loadData() {
@@ -34,8 +38,6 @@ public class EnrollmentSystem {
             }
         }
     }
-    
-
 
     private static void loadStudents(BufferedReader reader) throws IOException {
         String line;
@@ -50,8 +52,6 @@ public class EnrollmentSystem {
             }
         }
     }
-    
-
 
     private static void displayMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -85,35 +85,44 @@ public class EnrollmentSystem {
         System.out.print("Enter student ID or name: ");
         String input = scanner.nextLine();
         Student student = findStudent(input);
-
+    
         if (student == null) {
             System.out.println("Student not found.");
             return;
         }
-
-        Enrollment enrollment = findEnrollment(student);
-        if (enrollment == null) {
-            enrollment = new Enrollment(student);
-            enrollments.add(enrollment);
+    
+        if (enrolledStudents.contains(student)) {
+            System.out.println("Student is already enrolled.");
+            return;
         }
-
+    
         System.out.println("Available courses for Year " + student.getYearLevel() + ":");
         for (Course course : courses) {
             if (student.canEnrollCourse(course)) {
                 System.out.println(course.getCode() + " - " + course.getName());
             }
         }
-
-        System.out.print("Enter course code to enroll (or 'q' to quit): ");
-        String courseCode;
-        while (!(courseCode = scanner.nextLine()).equalsIgnoreCase("q")) {
-            Course course = findCourse(courseCode);
-            if (course != null) {
-                enrollment.enrollCourse(course);
+    
+        boolean enrollmentComplete = false;
+        while (!enrollmentComplete) {
+            System.out.print("Enter course code to enroll (or 'q' to quit, 's' to save): ");
+            String courseCode = scanner.nextLine();
+    
+            if (courseCode.equalsIgnoreCase("q")) {
+                return;
+            } else if (courseCode.equalsIgnoreCase("s")) {
+                enrolledStudents.add(student);
+                System.out.println("Enrollment saved for " + student.getName());
+                saveEnrollees(); // Call saveEnrollees method here
+                enrollmentComplete = true;
             } else {
-                System.out.println("Invalid course code.");
+                Course course = findCourse(courseCode);
+                if (course != null) {
+                    student.enrollCourse(course);
+                } else {
+                    System.out.println("Invalid course code.");
+                }
             }
-            System.out.print("Enter course code to enroll (or 'q' to quit): ");
         }
     }
 
@@ -123,16 +132,6 @@ public class EnrollmentSystem {
             if (student.getId().toLowerCase().equals(lowercaseInput) ||
                 student.getName().toLowerCase().equals(lowercaseInput)) {
                 return student;
-            }
-        }
-        return null;
-    }
-    
-
-    private static Enrollment findEnrollment(Student student) {
-        for (Enrollment enrollment : enrollments) {
-            if (enrollment.getStudent().equals(student)) {
-                return enrollment;
             }
         }
         return null;
@@ -147,16 +146,61 @@ public class EnrollmentSystem {
         return null;
     }
 
+    private static void loadEnrollees() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("enrollees.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 4) {
+                    String studentId = parts[0];
+                    String studentName = parts[1];
+                    int yearLevel = Integer.parseInt(parts[2]);
+                    Student student = findStudent(studentId);
+                    if (student == null) {
+                        student = new Student(studentId, studentName, yearLevel);
+                        students.add(student);
+                    }
+                    for (int i = 3; i < parts.length; i++) {
+                        Course course = findCourse(parts[i]);
+                        if (course != null) {
+                            student.enrollCourse(course);
+                        }
+                    }
+                    enrolledStudents.add(student);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading enrollees: " + e.getMessage());
+        }
+    }
+    
     private static void viewEnrollees() {
         System.out.println("\nList of Enrollees:");
-        for (Enrollment enrollment : enrollments) {
-            Student student = enrollment.getStudent();
+        for (Student student : enrolledStudents) {
             System.out.println("Student: " + student.getId() + " - " + student.getName());
             System.out.println("Enrolled Courses:");
-            for (Course course : enrollment.getEnrolledCourses()) {
+            for (Course course : student.getEnrolledCourses()) {
                 System.out.println("  " + course.getCode() + " - " + course.getName());
             }
             System.out.println();
         }
     }
+
+    private static void saveEnrollees() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("enrollees.txt"))) {
+            for (Student student : enrolledStudents) {
+                StringBuilder line = new StringBuilder(student.toString());
+                for (Course course : student.getEnrolledCourses()) {
+                    line.append(",").append(course.getCode());
+                }
+                writer.write(line.toString());
+                writer.newLine();
+            }
+            System.out.println("Enrollees saved to enrollees.txt");
+        } catch (IOException e) {
+            System.err.println("Error saving enrollees: " + e.getMessage());
+        }
+    }
+
+
 }

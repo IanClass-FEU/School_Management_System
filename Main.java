@@ -29,7 +29,6 @@ public class Main {
         } while (true);
     }
 
-
     private static void displayMenu() {
         System.out.println("\nWelcome to FEU!");
         System.out.println("1. Enrolment");
@@ -42,15 +41,16 @@ public class Main {
     private static void handleChoice(int choice, Scanner scanner) {
         switch (choice) {
             case 1:
+                EnrollmentSystem.displayMenu(); // Call the EnrollmentSystem menu
                 break;
             case 2:
-            StudentManagementMenu.studentManagementMenu();
+                StudentManagementMenu.studentManagementMenu();
                 break;
             case 3:
-            ScheduleManagementMenu.scheduleManagementMenu();
+                ScheduleManagementMenu.scheduleManagementMenu();
                 break;
             case 4:
-            CourseManagementMenu.courseManagementMenu();
+                CourseManagementMenu.courseManagementMenu();
                 break;
             case 5:
                 System.out.println("Exiting program...");
@@ -60,11 +60,11 @@ public class Main {
         }
     }
 
-
     private static void clearScreen() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         } catch (Exception e) {
+            // Handle the exception
         }
     }
 
@@ -73,8 +73,7 @@ public class Main {
         try {
             System.in.read();
         } catch (Exception e) {
+            // Handle the exception
         }
     }
-
 }
-

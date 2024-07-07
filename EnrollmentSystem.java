@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class EnrollmentSystem {
     private static List<Student> students = new ArrayList<>();
@@ -53,7 +52,10 @@ public class EnrollmentSystem {
         }
     }
 
-    private static void displayMenu() {
+    public static void displayMenu() {
+        loadData();
+        loadEnrollees();
+        
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
@@ -85,29 +87,29 @@ public class EnrollmentSystem {
         System.out.print("Enter student ID or name: ");
         String input = scanner.nextLine();
         Student student = findStudent(input);
-    
+
         if (student == null) {
             System.out.println("Student not found.");
             return;
         }
-    
+
         if (enrolledStudents.contains(student)) {
             System.out.println("Student is already enrolled.");
             return;
         }
-    
+
         System.out.println("Available courses for Year " + student.getYearLevel() + ":");
         for (Course course : courses) {
             if (student.canEnrollCourse(course)) {
                 System.out.println(course.getCode() + " - " + course.getName());
             }
         }
-    
+
         boolean enrollmentComplete = false;
         while (!enrollmentComplete) {
             System.out.print("Enter course code to enroll (or 'q' to quit, 's' to save): ");
             String courseCode = scanner.nextLine();
-    
+
             if (courseCode.equalsIgnoreCase("q")) {
                 return;
             } else if (courseCode.equalsIgnoreCase("s")) {
@@ -173,7 +175,7 @@ public class EnrollmentSystem {
             System.err.println("Error loading enrollees: " + e.getMessage());
         }
     }
-    
+
     private static void viewEnrollees() {
         System.out.println("\nList of Enrollees:");
         for (Student student : enrolledStudents) {
@@ -201,6 +203,4 @@ public class EnrollmentSystem {
             System.err.println("Error saving enrollees: " + e.getMessage());
         }
     }
-
-
 }

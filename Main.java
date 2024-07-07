@@ -7,6 +7,8 @@ public class Main {
         int choice;
         int maxChoice = 5;
 
+        displayIntro();
+        
         do {
             clearScreen();
             displayMenu();
@@ -29,19 +31,46 @@ public class Main {
         } while (true);
     }
 
+
+    private static void displayIntro() {
+System.out.println(" ______________________________________________");
+System.out.println("|       ┓ ┏  ┏┓  ┓   ┏┓  ┏┓  ┳┳┓  ┏┓           |");
+System.out.println("|       ┃┃┃  ┣   ┃   ┃   ┃┃  ┃┃┃  ┣            |");
+System.out.println("|       ┗┻┛  ┗┛  ┗┛  ┗┛  ┗┛  ┛ ┗  ┗┛           |");
+System.out.println("|                                              |");
+System.out.println("|                 ┏┳┓  ┏┓                      |");
+System.out.println("|                  ┃   ┃┃                      |");
+System.out.println("|                  ┻   ┗┛                      |");
+System.out.println("|                                              |");
+System.out.println("| ┏┳  ┏┓  ┓┏  ┏┓  ┓ ┏  ┏┓  ┏┓  ┓┏┓  ┏┓  ┏┓  ┏┓ |");
+System.out.println("|  ┃  ┣┫  ┃┃  ┣┫  ┃┃┃  ┃┃  ┃   ┃┫   ┣   ┣   ┏┛ |");
+System.out.println("| ┗┛  ┛┗  ┗┛  ┛┗  ┗┻┛  ┗┛  ┗┛  ┛┗┛  ┗┛  ┗┛  ┗┛ |");
+System.out.println("|______________________________________________|");
+pauseScreen();
+}
+
+
     private static void displayMenu() {
-        System.out.println("\nWelcome to FEU!");
-        System.out.println("1. Enrolment");
-        System.out.println("2. Student Management");
-        System.out.println("3. Schedule Management");
-        System.out.println("4. Course Management");
-        System.out.println("5. Exit Program");
+        System.out.println(" ______________________________________________");
+        System.out.println("|                                              |");
+        System.out.println("| ┏┳  ┏┓  ┓┏  ┏┓  ┓ ┏  ┏┓  ┏┓  ┓┏┓  ┏┓  ┏┓  ┏┓ |");
+        System.out.println("|  ┃  ┣┫  ┃┃  ┣┫  ┃┃┃  ┃┃  ┃   ┃┫   ┣   ┣   ┏┛ |");
+        System.out.println("| ┗┛  ┛┗  ┗┛  ┛┗  ┗┻┛  ┗┛  ┗┛  ┛┗┛  ┗┛  ┗┛  ┗┛ |");
+        System.out.println("|          School Management System            |");
+        System.out.println("|______________________________________________|");
+        System.out.println("|                                              |");
+        System.out.println("|1. Enrolment                                  |");
+        System.out.println("|2. Student Management                         |");
+        System.out.println("|3. Schedule Management                        |");
+        System.out.println("|4. Course Management                          |");
+        System.out.println("|5. Exit Program                               |");
+        System.out.println("|______________________________________________|");
     }
 
     private static void handleChoice(int choice, Scanner scanner) {
         switch (choice) {
             case 1:
-                EnrollmentSystem.displayMenu(); // Call the EnrollmentSystem menu
+                EnrollmentSystem.displayMenu();
                 break;
             case 2:
                 StudentManagementMenu.studentManagementMenu();

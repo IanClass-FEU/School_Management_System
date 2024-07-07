@@ -55,7 +55,8 @@ public class EnrollmentSystem {
     public static void displayMenu() {
         loadData();
         loadEnrollees();
-        
+        clearScreen();
+
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
@@ -65,7 +66,7 @@ public class EnrollmentSystem {
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -115,7 +116,7 @@ public class EnrollmentSystem {
             } else if (courseCode.equalsIgnoreCase("s")) {
                 enrolledStudents.add(student);
                 System.out.println("Enrollment saved for " + student.getName());
-                saveEnrollees(); // Call saveEnrollees method here
+                saveEnrollees();
                 enrollmentComplete = true;
             } else {
                 Course course = findCourse(courseCode);
@@ -203,4 +204,13 @@ public class EnrollmentSystem {
             System.err.println("Error saving enrollees: " + e.getMessage());
         }
     }
+
+    private static void clearScreen() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+
+        }
+    }
+
 }

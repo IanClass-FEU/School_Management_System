@@ -64,7 +64,7 @@ public class Main {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         } catch (Exception e) {
-            // Handle the exception
+
         }
     }
 
@@ -73,7 +73,7 @@ public class Main {
         try {
             System.in.read();
         } catch (Exception e) {
-            // Handle the exception
+
         }
     }
 }

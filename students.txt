@@ -1,2 +1,2 @@
-123456,tam,ian,sta,M,2003-09-08,adsadasd,BSIT-CST,1
+123456,tam,nai,s,M,2003-09-08,12 adsda,BSIT-CST,1
 654321,adsdas,sadd,adsa,M,2003-09-07,adsada,dasda,1

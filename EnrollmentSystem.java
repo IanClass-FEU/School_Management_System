@@ -55,11 +55,11 @@ public class EnrollmentSystem {
     public static void displayMenu() {
         loadData();
         loadEnrollees();
-        clearScreen();
 
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
+            clearScreen();
             System.out.println(" ______________________________________________");
             System.out.println("|    ┏┓  ┳┓  ┳┓  ┏┓  ┓   ┓   ┳┳┓  ┏┓  ┳┓  ┏┳┓  |");
             System.out.println("|    ┣   ┃┃  ┣┫  ┃┃  ┃   ┃   ┃┃┃  ┣   ┃┃   ┃   |");
@@ -95,49 +95,83 @@ public class EnrollmentSystem {
     }
 
     private static void enrollStudent(Scanner scanner) {
-        System.out.print("Enter student ID or name: ");
-        String input = scanner.nextLine();
-        Student student = findStudent(input);
-
-        if (student == null) {
-            System.out.println("Student not found.");
-            return;
-        }
-
-        if (enrolledStudents.contains(student)) {
-            System.out.println("Student is already enrolled.");
-            return;
-        }
-
-        System.out.println("Available courses for Year " + student.getYearLevel() + ":");
-        for (Course course : courses) {
-            if (student.canEnrollCourse(course)) {
-                System.out.println(course.getCode() + " - " + course.getName());
+        boolean continueEnrollment = true;
+    
+        while (continueEnrollment) {
+            System.out.print("Enter student ID or name (or 'q' to quit): ");
+            String input = scanner.nextLine();
+    
+            if (input.equalsIgnoreCase("q")) {
+                return; // Exit the method and return to the main menu
             }
-        }
-
-        boolean enrollmentComplete = false;
-        while (!enrollmentComplete) {
-            System.out.print("Enter course code to enroll (or 'q' to quit, 's' to save): ");
-            String courseCode = scanner.nextLine();
-
-            if (courseCode.equalsIgnoreCase("q")) {
-                return;
-            } else if (courseCode.equalsIgnoreCase("s")) {
-                enrolledStudents.add(student);
-                System.out.println("Enrollment saved for " + student.getName());
-                saveEnrollees();
-                enrollmentComplete = true;
-            } else {
-                Course course = findCourse(courseCode);
-                if (course != null) {
-                    student.enrollCourse(course);
+    
+            Student student = findStudent(input);
+    
+            if (student == null) {
+                System.out.println("Student not found.");
+                continue; // Skip to the next iteration of the loop
+            }
+    
+            if (enrolledStudents.contains(student)) {
+                System.out.println("Student is already enrolled.");
+                continue; // Skip to the next iteration of the loop
+            }
+    
+            // Create a List to store unique courses
+            List<Course> availableCourses = new ArrayList<>();
+    
+            for (Course course : courses) {
+                if (student.canEnrollCourse(course) && student.getYearLevel() == course.getYearLevel()) {
+                    boolean isDuplicate = false;
+                    for (Course existingCourse : availableCourses) {
+                        if (existingCourse.getCode().equals(course.getCode())) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+    
+                    // Add the course to the list if it's not a duplicate
+                    if (!isDuplicate) {
+                        availableCourses.add(course);
+                    }
+                }
+            }
+    
+            System.out.println("Available courses for Year " + student.getYearLevel() + ":");
+            System.out.printf("%-10s %-30s %s%n", "Code", "Name", "Units");
+            System.out.println("-----------------------------------");
+    
+            for (Course course : availableCourses) {
+                System.out.printf("%-10s %-30s %d%n", course.getCode(), course.getName(), course.getUnits());
+            }
+    
+            System.out.println();
+    
+            boolean enrollmentComplete = false;
+            while (!enrollmentComplete) {
+                System.out.print("Enter course code to enroll (or 'q' to quit, 's' to save): ");
+                String courseCode = scanner.nextLine();
+    
+                if (courseCode.equalsIgnoreCase("q")) {
+                    continueEnrollment = false; // Exit the outer loop and return to the main menu
+                    break;
+                } else if (courseCode.equalsIgnoreCase("s")) {
+                    enrolledStudents.add(student);
+                    System.out.println("Enrollment saved for " + student.getName());
+                    saveEnrollees();
+                    enrollmentComplete = true;
                 } else {
-                    System.out.println("Invalid course code.");
+                    Course course = findCourse(courseCode);
+                    if (course != null) {
+                        student.enrollCourse(course);
+                    } else {
+                        System.out.println("Invalid course code.");
+                    }
                 }
             }
         }
     }
+
 
     private static Student findStudent(String input) {
         String lowercaseInput = input.toLowerCase();
@@ -188,8 +222,13 @@ public class EnrollmentSystem {
     }
 
     private static void viewEnrollees() {
+        clearScreen();
         System.out.println("\nList of Enrollees:");
-        for (Student student : enrolledStudents) {
+    
+        // Create a Set to store unique students
+        Set<Student> uniqueStudents = new HashSet<>(enrolledStudents);
+    
+        for (Student student : uniqueStudents) {
             System.out.println("Student: " + student.getId() + " - " + student.getName());
             System.out.println("Enrolled Courses:");
             for (Course course : student.getEnrolledCourses()) {
@@ -197,7 +236,10 @@ public class EnrollmentSystem {
             }
             System.out.println();
         }
+    
+        pauseScreen();
     }
+    
 
     private static void saveEnrollees() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("enrollees.txt"))) {
@@ -218,6 +260,15 @@ public class EnrollmentSystem {
     private static void clearScreen() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+
+        }
+    }
+
+    private static void pauseScreen() {
+        System.out.println("Press Enter to continue...");
+        try {
+            System.in.read();
         } catch (Exception e) {
 
         }

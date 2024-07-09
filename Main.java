@@ -18,12 +18,16 @@ public class Main {
                 scanner.nextLine();
 
                 if (choice < 1 || choice > maxChoice) {
+                    clearScreen();
+                    displayMenu();
                     System.out.println("Invalid choice. Please enter a number between 1 and " + maxChoice + ".");
                     pauseScreen();
                 } else {
                     handleChoice(choice, scanner);
                 }
             } catch (InputMismatchException e) {
+                clearScreen();
+                displayMenu();
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.nextLine();
                 pauseScreen();
@@ -74,23 +78,38 @@ pauseScreen();
                 EnrollmentSystem.displayMenu();
                 break;
             case 2:
-            clearScreen();
+                clearScreen();
                 StudentManagementMenu.studentManagementMenu();
                 break;
             case 3:
-            clearScreen();
+                clearScreen();
                 ScheduleManagementMenu.scheduleManagementMenu();
                 break;
             case 4:
                 CourseManagementMenu.courseManagementMenu();
                 break;
             case 5:
-                System.out.println("Exiting program...");
-                System.exit(0);
+                System.out.println("Are you sure you want to exit the program? (y/n)");
+                String confirmation = scanner.nextLine();
+                if (confirmation.equalsIgnoreCase("y")) {
+                    System.out.println("Exiting program...");
+                    System.exit(0);
+                } if (confirmation.equalsIgnoreCase("n")){
+                    clearScreen();
+                    displayMenu();
+                    System.out.println("Exiting cancelled.");
+                    pauseScreen();
+                }
+                else {
+                    System.out.println("Invalid Input. Exiting cancelled.");
+                    pauseScreen();
+                }
+                break;
             default:
                 System.out.println("Invalid choice. Please try again.");
         }
     }
+
 
     private static void clearScreen() {
         try {

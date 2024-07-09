@@ -79,53 +79,131 @@ public class StudentManagementMenu {
     }
 
     private static void addStudent() {
+        clearScreen();
         System.out.print("Enter student ID: ");
         String id = getInput();
-
+    
         if (!isValidStudentId(id)) {
             System.out.println("Invalid student ID. The ID must be a 6-digit number.");
             return;
         }
-
+    
         if (isDuplicateStudent(id)) {
             System.out.println("Student with ID " + id + " already exists.");
             return;
         }
-
+    
+        clearScreen();
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + id);
         System.out.print("Enter last name: ");
         String lastName = getNameInput();
-
+    
+        clearScreen();
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + id);
+        System.out.println(" Last Name       " + lastName);
         System.out.print("Enter first name: ");
         String firstName = getNameInput();
-
+    
+        clearScreen();
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + id);
+        System.out.println(" Last Name       " + lastName);
+        System.out.println(" First Name      " + firstName);
         System.out.print("Enter middle name: ");
         String middleName = getNameInput();
-
+    
+        clearScreen();
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + id);
+        System.out.println(" Last Name       " + lastName);
+        System.out.println(" First Name      " + firstName);
+        System.out.println(" Middle Name     " + middleName);
         System.out.print("Enter gender (M/F): ");
         String gender = getGenderInput();
-
+    
+        clearScreen();
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + id);
+        System.out.println(" Last Name       " + lastName);
+        System.out.println(" First Name      " + firstName);
+        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Gender          " + gender);
         System.out.print("Enter birthday (yyyy-MM-dd): ");
         String birthdayStr = getInput();
         Date birthday = parseDate(birthdayStr);
         if (birthday == null) {
             return;
         }
-
+    
+        clearScreen();
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + id);
+        System.out.println(" Last Name       " + lastName);
+        System.out.println(" First Name      " + firstName);
+        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Gender          " + gender);
+        System.out.println(" Birthdate       " + birthdayStr);
         System.out.print("Enter address: ");
         String address = getInput();
-
+    
+        clearScreen();
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + id);
+        System.out.println(" Last Name       " + lastName);
+        System.out.println(" First Name      " + firstName);
+        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Gender          " + gender);
+        System.out.println(" Birthdate       " + birthdayStr);
+        System.out.println(" Address         " + address);
         System.out.print("Enter degree program: ");
         String degreeProgram = getInput();
-
+        
+        clearScreen();
+        System.out.println("\nPlease confirm the following details:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + id);
+        System.out.println(" Last Name       " + lastName);
+        System.out.println(" First Name      " + firstName);
+        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Gender          " + gender);
+        System.out.println(" Birthdate       " + birthdayStr);
+        System.out.println(" Address         " + address);
+        System.out.println(" Degree Program  " + degreeProgram);
         System.out.print("Enter year level: ");
         int yearLevel = getIntInput();
-
-        Student student = new Student(id, lastName, firstName, middleName, gender, birthday, address, degreeProgram, yearLevel);
-        students.add(student);
-        writeStudentToFile(student);
-
-        System.out.println("Student added successfully.");
+    
+        clearScreen();
+        System.out.println("\nPlease confirm the following details:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + id);
+        System.out.println(" Last Name       " + lastName);
+        System.out.println(" First Name      " + firstName);
+        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Gender          " + gender);
+        System.out.println(" Birthdate       " + birthdayStr);
+        System.out.println(" Address         " + address);
+        System.out.println(" Degree Program  " + degreeProgram);
+        System.out.println(" Year Level      " + yearLevel);
+        
+        System.out.println(" ");
+        System.out.println("Confirm adding student? (Y/N): ");
+        
+        String confirm = getInput().toUpperCase();
+    
+        if (confirm.equals("Y")) {
+            Student student = new Student(id, lastName, firstName, middleName, gender, birthday, address, degreeProgram, yearLevel);
+            students.add(student);
+            writeStudentToFile(student);
+            System.out.println("Student added successfully.");
+        } else {
+            System.out.println("Student addition canceled.");
+        }
+    
+        pauseScreen();
     }
+    
 
     private static boolean isDuplicateStudent(String id) {
         for (Student student : students) {
@@ -152,39 +230,99 @@ public class StudentManagementMenu {
     }
 
     private static void editStudent() {
+        clearScreen();
         System.out.print("Enter student ID to edit: ");
         String id = getInput();
-
+    
         Student student = findStudentById(id);
         if (student == null) {
             System.out.println("Student with ID " + id + " not found.");
             return;
         }
 
+        clearScreen();
+        System.out.println("\nCurrent student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+        System.out.println(" Last Name       " + student.getLastName());
+        System.out.println(" First Name      " + student.getFirstName());
+        System.out.println(" Middle Name     " + student.getMiddleName());
+        System.out.println(" Gender          " + student.getGender());
+        System.out.println(" Birthdate       " + student.getBirthday().toString());
+        System.out.println(" Address         " + student.getAddress());
+        System.out.println(" Degree Program  " + student.getDegreeProgram());
+        System.out.println(" Year Level      " + student.getYearLevel());
+    
+        System.out.print("\nConfirm editing student information? (Y/N): ");
+        String confirm = getInput().toUpperCase();
+    
+        if (!confirm.equals("Y")) {
+            clearScreen();
+            System.out.println("Student information edit canceled.");
+            pauseScreen();
+            return;
+        }
+    
+        clearScreen();
+        System.out.println("\nUpdated student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+
         System.out.print("Enter new last name (" + student.getLastName() + "): ");
         String lastName = getNameInput();
         if (!lastName.isEmpty()) {
             student.setLastName(lastName);
         }
+    
+        clearScreen();
+        System.out.println("\nUpdated student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+        System.out.println(" Last Name       " + student.getLastName());
 
         System.out.print("Enter new first name (" + student.getFirstName() + "): ");
         String firstName = getNameInput();
         if (!firstName.isEmpty()) {
             student.setFirstName(firstName);
         }
+    
+        clearScreen();
+        System.out.println("\nUpdated student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+        System.out.println(" Last Name       " + student.getLastName());
+        System.out.println(" First Name      " + student.getFirstName());
 
         System.out.print("Enter new middle name (" + student.getMiddleName() + "): ");
         String middleName = getNameInput();
         if (!middleName.isEmpty()) {
             student.setMiddleName(middleName);
         }
+    
+        clearScreen();
+        System.out.println("\nUpdated student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+        System.out.println(" Last Name       " + student.getLastName());
+        System.out.println(" First Name      " + student.getFirstName());
+        System.out.println(" Middle Name     " + student.getMiddleName());
 
         System.out.print("Enter new gender (" + student.getGender() + ") (M/F): ");
         String gender = getGenderInput();
         if (!gender.isEmpty()) {
             student.setGender(gender);
         }
+    
+        clearScreen();
+        System.out.println("\nUpdated student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+        System.out.println(" Last Name       " + student.getLastName());
+        System.out.println(" First Name      " + student.getFirstName());
+        System.out.println(" Middle Name     " + student.getMiddleName());
+        System.out.println(" Gender          " + student.getGender());
 
+        System.out.println("\nEnter the student's birth date (YYYY-MM-DD) or leave blank to keep the current value:");
         String birthdayStr = getInput();
         if (!birthdayStr.isEmpty()) {
             Date birthday = parseDate(birthdayStr);
@@ -192,28 +330,89 @@ public class StudentManagementMenu {
                 student.setBirthday(birthday);
             }
         }
+    
+
+        clearScreen();
+        System.out.println("\nUpdated student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+        System.out.println(" Last Name       " + student.getLastName());
+        System.out.println(" First Name      " + student.getFirstName());
+        System.out.println(" Middle Name     " + student.getMiddleName());
+        System.out.println(" Gender          " + student.getGender());
+        System.out.println(" Birthdate       " + student.getBirthday().toString());
 
         System.out.print("Enter new address (" + student.getAddress() + "): ");
         String address = getInput();
         if (!address.isEmpty()) {
             student.setAddress(address);
         }
+    
+
+        clearScreen();
+        System.out.println("\nUpdated student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+        System.out.println(" Last Name       " + student.getLastName());
+        System.out.println(" First Name      " + student.getFirstName());
+        System.out.println(" Middle Name     " + student.getMiddleName());
+        System.out.println(" Gender          " + student.getGender());
+        System.out.println(" Birthdate       " + student.getBirthday().toString());
+        System.out.println(" Address         " + student.getAddress());
 
         System.out.print("Enter new degree program (" + student.getDegreeProgram() + "): ");
         String degreeProgram = getInput();
         if (!degreeProgram.isEmpty()) {
             student.setDegreeProgram(degreeProgram);
         }
+    
+        clearScreen();
+        System.out.println("\nUpdated student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+        System.out.println(" Last Name       " + student.getLastName());
+        System.out.println(" First Name      " + student.getFirstName());
+        System.out.println(" Middle Name     " + student.getMiddleName());
+        System.out.println(" Gender          " + student.getGender());
+        System.out.println(" Birthdate       " + student.getBirthday().toString());
+        System.out.println(" Address         " + student.getAddress());
+        System.out.println(" Degree Program  " + student.getDegreeProgram());
 
         System.out.print("Enter new year level (" + student.getYearLevel() + "): ");
         int yearLevel = getIntInput();
         if (yearLevel != 0) {
             student.setYearLevel(yearLevel);
         }
-
-        writeStudentsToFile();
-        System.out.println("Student information updated successfully.");
+    
+        
+        System.out.println("\nUpdated student information:");
+        System.out.println("Field           Value ");
+        System.out.println(" ID              " + student.getId());
+        System.out.println(" Last Name       " + student.getLastName());
+        System.out.println(" First Name      " + student.getFirstName());
+        System.out.println(" Middle Name     " + student.getMiddleName());
+        System.out.println(" Gender          " + student.getGender());
+        System.out.println(" Birthdate       " + student.getBirthday().toString());
+        System.out.println(" Address         " + student.getAddress());
+        System.out.println(" Degree Program  " + student.getDegreeProgram());
+        System.out.println(" Year Level      " + student.getYearLevel());
+    
+        System.out.print("Confirm updating student information? (Y/N): ");
+        String confirm2 = getInput().toUpperCase();
+    
+        if (confirm2.equals("Y")) {
+            clearScreen();
+            writeStudentsToFile();
+            System.out.println("Student information updated successfully.");
+            pauseScreen();
+        } else {
+            clearScreen();
+            System.out.println("Student information update canceled.");
+            pauseScreen();
+        }
     }
+    
+    
 
     private static Student findStudentById(String id) {
         for (Student student : students) {
@@ -306,6 +505,23 @@ public class StudentManagementMenu {
             }
         } catch (IOException e) {
             System.out.println("Error writing to students file: " + e.getMessage());
+        }
+    }
+
+    private static void pauseScreen() {
+        System.out.println("Press Enter to continue...");
+        try {
+            System.in.read();
+        } catch (Exception e) {
+
+        }
+    }
+
+    private static void clearScreen() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+
         }
     }
 

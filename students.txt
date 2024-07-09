@@ -1,4 +1,3 @@
 123456,tam,nai,s,M,2003-09-08,12 adsda,BSIT-CST,1
 654321,adsdas,sadd,adsa,M,2003-09-07,adsada,dasda,1
-234567,andra,de,ab,F,2003-03-15,asfadadsa,BSIT-WMA,2
-567890,ta,dffg,sad,M,2003-09-08,adasdada,asdasda,1
+234567,ala,ka,ka,M,2003-09-08,kkkkkkk,BSIT-CST,2

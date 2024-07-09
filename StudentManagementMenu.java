@@ -14,6 +14,7 @@ public class StudentManagementMenu {
         loadStudentsFromFile();
         boolean exit = false;
         while (!exit) {
+            clearScreen();
             System.out.println(" ______________________________________________");
             System.out.println("|         ┏┓  ┏┳┓  ┳┳  ┳┓  ┏┓  ┳┓  ┏┳┓         |");
             System.out.println("|         ┗┓   ┃   ┃┃  ┃┃  ┣   ┃┃   ┃          |");
@@ -219,19 +220,47 @@ public class StudentManagementMenu {
     }
 
     private static void viewStudentList() {
+        clearScreen();
         if (students.isEmpty()) {
             System.out.println("No students found.");
         } else {
             System.out.println("\nStudent List:");
+            System.out.println("________________________________");
+            int maxIdLength = "ID Number".length();
+            int maxNameLength = "Full Name".length();
             for (Student student : students) {
-                System.out.println("ID Number: " + student.getId() + ", Full Name: " + student.getFullName());
+                maxIdLength = Math.max(maxIdLength, student.getId().length());
+                maxNameLength = Math.max(maxNameLength, student.getFullName().length());
+            }
+
+            for (Student student : students) {
+                System.out.printf("%-" + (maxIdLength + 2) + "s %-" + (maxNameLength + 2) + "s%n", student.getId(), student.getFullName());
+                System.out.println("________________________________");
             }
         }
+        pauseScreen();
     }
 
     private static void editStudent() {
         clearScreen();
-        System.out.print("Enter student ID to edit: ");
+
+        System.out.println("\nStudent List:");
+        System.out.println("________________________________");
+    
+        int maxIdLength = "ID Number".length();
+        int maxNameLength = "Full Name".length();
+        for (Student student : students) {
+            maxIdLength = Math.max(maxIdLength, student.getId().length());
+            maxNameLength = Math.max(maxNameLength, student.getFullName().length());
+        }
+    
+
+        for (Student student : students) {
+            System.out.printf("%-" + (maxIdLength + 2) + "s %-" + (maxNameLength + 2) + "s%n", student.getId(), student.getFullName());
+            System.out.println("________________________________");
+        }
+    
+        System.out.print("\nEnter student ID to edit: ");
         String id = getInput();
     
         Student student = findStudentById(id);
@@ -384,7 +413,7 @@ public class StudentManagementMenu {
             student.setYearLevel(yearLevel);
         }
     
-        
+        clearScreen();
         System.out.println("\nUpdated student information:");
         System.out.println("Field           Value ");
         System.out.println(" ID              " + student.getId());
@@ -424,19 +453,48 @@ public class StudentManagementMenu {
     }
 
     private static void deleteStudent() {
-        System.out.print("Enter student ID to delete: ");
+        clearScreen();
+        System.out.println("\nStudent List:");
+        int maxIdLength = "ID Number".length();
+        int maxNameLength = "Full Name".length();
+        for (Student student : students) {
+            maxIdLength = Math.max(maxIdLength, student.getId().length());
+            maxNameLength = Math.max(maxNameLength, student.getFullName().length());
+        }
+    
+        for (Student student : students) {
+            System.out.printf("%-" + (maxIdLength + 2) + "s %-" + (maxNameLength + 2) + "s%n", student.getId(), student.getFullName());
+            System.out.println("________________________________");
+        }
+    
+        System.out.print("\nEnter student ID to delete: ");
         String id = getInput();
-
+    
         Student student = findStudentById(id);
         if (student == null) {
             System.out.println("Student with ID " + id + " not found.");
             return;
         }
-
-        students.remove(student);
-        writeStudentsToFile();
-        System.out.println("Student record deleted successfully.");
+    
+        maxIdLength = Math.max(maxIdLength, student.getId().length());
+        maxNameLength = Math.max(maxNameLength, student.getFullName().length());
+    
+        System.out.println("\nConfirm Student Deletion:");
+        System.out.printf("%-" + (maxIdLength + 2) + "s %-" + (maxNameLength + 2) + "s%n", student.getId(), student.getFullName());
+    
+        System.out.print("\nAre you sure you want to delete this student? (y/n) ");
+        String confirmation = getInput();
+    
+        if (confirmation.equalsIgnoreCase("y")) {
+            students.remove(student);
+            writeStudentsToFile();
+            System.out.println("Student record deleted successfully.");
+        } else {
+            System.out.println("Student deletion canceled.");
+        }
     }
+    
+    
 
     private static String getInput() {
         String input = scanner.nextLine().trim();

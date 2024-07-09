@@ -15,13 +15,22 @@ public class ScheduleManagementMenu {
         loadSchedulesFromFile();
         boolean exit = false;
         while (!exit) {
-            System.out.println("\nSchedule Management Menu");
-            System.out.println("1. Add Schedule");
-            System.out.println("2. View Schedules");
-            System.out.println("3. Edit Schedule");
-            System.out.println("4. Delete Schedule");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
+            System.out.println(" ______________________________________________");
+            System.out.println("|       ┏┓  ┏┓  ┓┏  ┏┓  ┳┓  ┳┳  ┓   ┏┓         |");
+            System.out.println("|       ┗┓  ┃   ┣┫  ┣   ┃┃  ┃┃  ┃   ┣          |");
+            System.out.println("|       ┗┛  ┗┛  ┛┗  ┗┛  ┻┛  ┗┛  ┗┛  ┗┛         |");
+            System.out.println("|                                              |");
+            System.out.println("|   ┳┳┓  ┏┓  ┳┓  ┏┓  ┏┓  ┏┓  ┳┳┓  ┏┓  ┳┓  ┏┳┓  |");
+            System.out.println("|   ┃┃┃  ┣┫  ┃┃  ┣┫  ┃┓  ┣   ┃┃┃  ┣   ┃┃   ┃   |");
+            System.out.println("|   ┛ ┗  ┛┗  ┛┗  ┛┗  ┗┛  ┗┛  ┛ ┗  ┗┛  ┛┗   ┻   |");
+            System.out.println("|______________________________________________|");
+            System.out.println("|                                              |");
+            System.out.println("|    [1] Add Course       [2] View Course      |");
+            System.out.println("|                                              |");
+            System.out.println("|    [3] Edit Course      [4] Delete Course    |");
+            System.out.println("|                                              |");
+            System.out.println("|                  [5] Exit                    |");
+            System.out.println("|______________________________________________|");
 
             int choice = getIntInput();
 

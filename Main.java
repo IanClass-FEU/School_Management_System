@@ -8,7 +8,7 @@ public class Main {
         int maxChoice = 5;
 
         displayIntro();
-        
+
         do {
             clearScreen();
             displayMenu();
@@ -59,11 +59,12 @@ pauseScreen();
         System.out.println("|          School Management System            |");
         System.out.println("|______________________________________________|");
         System.out.println("|                                              |");
-        System.out.println("|1. Enrolment                                  |");
-        System.out.println("|2. Student Management                         |");
-        System.out.println("|3. Schedule Management                        |");
-        System.out.println("|4. Course Management                          |");
-        System.out.println("|5. Exit Program                               |");
+        System.out.println("|       [1] Enrolment     [2] Student          |");
+        System.out.println("|                                              |");
+        System.out.println("|       [3] Schedule      [4] Course           |");
+        System.out.println("|                                              |");
+        System.out.println("|              [5] Exit Program                |");
+        System.out.println("|                                              |");
         System.out.println("|______________________________________________|");
     }
 
@@ -73,9 +74,11 @@ pauseScreen();
                 EnrollmentSystem.displayMenu();
                 break;
             case 2:
+            clearScreen();
                 StudentManagementMenu.studentManagementMenu();
                 break;
             case 3:
+            clearScreen();
                 ScheduleManagementMenu.scheduleManagementMenu();
                 break;
             case 4:

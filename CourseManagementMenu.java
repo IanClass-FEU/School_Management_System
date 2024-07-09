@@ -10,17 +10,26 @@ public class CourseManagementMenu {
 
     public static void courseManagementMenu() {
         loadCoursesFromFile();
+        clearScreen();
         boolean exit = false;
         while (!exit) {
-            System.out.println("\nCourse Management Menu");
-            System.out.println("1. Add Course");
-            System.out.println("2. View Courses");
-            System.out.println("3. Edit Course");
-            System.out.println("4. Delete Course");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
-
-            int choice = getIntInput();
+        System.out.println(" ______________________________________________");
+        System.out.println("|            ┏┓  ┏┓  ┳┳  ┳┓  ┏┓  ┏┓            |");
+        System.out.println("|            ┃   ┃┃  ┃┃  ┣┫  ┗┓  ┣             |");
+        System.out.println("|            ┗┛  ┗┛  ┗┛  ┛┗  ┗┛  ┗┛            |");
+        System.out.println("|                                              |");
+        System.out.println("|   ┳┳┓  ┏┓  ┳┓  ┏┓  ┏┓  ┏┓  ┳┳┓  ┏┓  ┳┓  ┏┳┓  |");
+        System.out.println("|   ┃┃┃  ┣┫  ┃┃  ┣┫  ┃┓  ┣   ┃┃┃  ┣   ┃┃   ┃   |");
+        System.out.println("|   ┛ ┗  ┛┗  ┛┗  ┛┗  ┗┛  ┗┛  ┛ ┗  ┗┛  ┛┗   ┻   |");
+        System.out.println("|______________________________________________|");
+        System.out.println("|                                              |");
+        System.out.println("|    [1] Add Course       [2] View Course      |");
+        System.out.println("|                                              |");
+        System.out.println("|    [3] Edit Course      [4] Delete Course    |");
+        System.out.println("|                                              |");
+        System.out.println("|                  [5] Exit                    |");
+        System.out.println("|______________________________________________|");
+        int choice = getIntInput();
 
             switch (choice) {
                 case 1:
@@ -264,5 +273,13 @@ public class CourseManagementMenu {
 
     public static void main(String[] args) {
         courseManagementMenu();
+    }
+
+    private static void clearScreen() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+
+        }
     }
 }

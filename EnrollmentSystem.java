@@ -60,10 +60,20 @@ public class EnrollmentSystem {
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("\nEnrollment System Menu:");
-            System.out.println("1. Enroll a Student");
-            System.out.println("2. View List of Enrollees");
-            System.out.println("3. Exit");
+            System.out.println(" ______________________________________________");
+            System.out.println("|    ┏┓  ┳┓  ┳┓  ┏┓  ┓   ┓   ┳┳┓  ┏┓  ┳┓  ┏┳┓  |");
+            System.out.println("|    ┣   ┃┃  ┣┫  ┃┃  ┃   ┃   ┃┃┃  ┣   ┃┃   ┃   |");
+            System.out.println("|    ┗┛  ┛┗  ┛┗  ┗┛  ┗┛  ┗┛  ┛ ┗  ┗┛  ┛┗   ┻   |");
+            System.out.println("|                                              |");
+            System.out.println("|           ┏┓  ┓┏  ┏┓  ┏┳┓  ┏┓  ┳┳┓           |");
+            System.out.println("|           ┗┓  ┗┫  ┗┓   ┃   ┣   ┃┃┃           |");
+            System.out.println("|           ┗┛  ┗┛  ┗┛   ┻   ┗┛  ┛ ┗           |");
+            System.out.println("|______________________________________________|");
+            System.out.println("|                                              |");
+            System.out.println("| [1] Enroll Student      [2] View Enrollees   |");
+            System.out.println("|                                              |");
+            System.out.println("|                 [3] Exit                     |");
+            System.out.println("|______________________________________________|");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
             scanner.nextLine();

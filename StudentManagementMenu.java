@@ -14,14 +14,21 @@ public class StudentManagementMenu {
         loadStudentsFromFile();
         boolean exit = false;
         while (!exit) {
-            System.out.println("\nStudent Management Menu");
-            System.out.println("1. Add Student");
-            System.out.println("2. View Student List");
-            System.out.println("3. Edit Student");
-            System.out.println("4. Delete Student");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
-
+            System.out.println(" ______________________________________________");
+            System.out.println("|         ┏┓  ┏┳┓  ┳┳  ┳┓  ┏┓  ┳┓  ┏┳┓         |");
+            System.out.println("|         ┗┓   ┃   ┃┃  ┃┃  ┣   ┃┃   ┃          |");
+            System.out.println("|         ┗┛   ┻   ┗┛  ┻┛  ┗┛  ┛┗   ┻          |");
+            System.out.println("|   ┳┳┓  ┏┓  ┳┓  ┏┓  ┏┓  ┏┓  ┳┳┓  ┏┓  ┳┓  ┏┳┓  |");
+            System.out.println("|   ┃┃┃  ┣┫  ┃┃  ┣┫  ┃┓  ┣   ┃┃┃  ┣   ┃┃   ┃   |");
+            System.out.println("|   ┛ ┗  ┛┗  ┛┗  ┛┗  ┗┛  ┗┛  ┛ ┗  ┗┛  ┛┗   ┻   |");
+            System.out.println("|______________________________________________|");
+            System.out.println("|                                              |");
+            System.out.println("|   [1] Add Student       [2] View Student     |");
+            System.out.println("|                                              |");
+            System.out.println("|   [3] Edit Student      [4] Delete Student   |");
+            System.out.println("|                                              |");
+            System.out.println("|                 [5] Exit                     |");
+            System.out.println("|______________________________________________|");
             int choice = getIntInput();
 
             switch (choice) {
@@ -280,11 +287,6 @@ public class StudentManagementMenu {
             System.out.println("Invalid date format. Please use yyyy-MM-dd.");
             return null;
         }
-    }
-
-    private static String formatDate(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        return formatter.format(date);
     }
 
     private static void writeStudentToFile(Student student) {

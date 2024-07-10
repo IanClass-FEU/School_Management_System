@@ -11,6 +11,7 @@ public class ScheduleManagementMenu {
     private static final Pattern COURSE_CODE_PATTERN = Pattern.compile("^[a-zA-Z]{3}\\d{3}$");
 
     public static void scheduleManagementMenu() {
+        clearScreen();
         loadCoursesFromFile();
         loadSchedulesFromFile();
         boolean exit = false;
@@ -40,6 +41,8 @@ public class ScheduleManagementMenu {
                     break;
                 case 2:
                     viewSchedules();
+                    pauseScreen();
+                    clearScreen();
                     break;
                 case 3:
                     editSchedule();
@@ -121,24 +124,59 @@ public class ScheduleManagementMenu {
             System.out.println("Schedule for course " + courseCode + " already exists.");
             return;
         }
-
+        clearScreen();
+        System.out.println("Course Code: " + course.getCourseCode());
+        System.out.println("Course Title: " + course.getCourseTitle());
         System.out.print("Enter section: ");
         String section = getInput();
 
+        clearScreen();
+        System.out.println("Course Code: " + course.getCourseCode());
+        System.out.println("Course Title: " + course.getCourseTitle());
+        System.out.println("Section: " + section);
         System.out.print("Enter day (e.g., M T W TH F S): ");
         String day = getInput();
 
+        clearScreen();
+        System.out.println("\nNew Schedule:");
+        System.out.println("Course Code: " + course.getCourseCode());
+        System.out.println("Course Title: " + course.getCourseTitle());
+        System.out.println("Section: " + section);
+        System.out.println("Day: " + day);
         System.out.print("Enter time (24 Hours Format): ");
         String time = getInput();
 
+        clearScreen();
+        System.out.println("\nNew Schedule:");
+        System.out.println("Course Code: " + course.getCourseCode());
+        System.out.println("Course Title: " + course.getCourseTitle());
+        System.out.println("Section: " + section);
+        System.out.println("Day: " + day);
+        System.out.println("Time: " + time);
         System.out.print("Enter room: ");
         String room = getInput();
 
-        Schedule schedule = new Schedule(course, section, day, time, room);
-        schedules.add(schedule);
-        writeScheduleToFile(schedule);
+        clearScreen();
+        System.out.println("\nNew Schedule:");
+        System.out.println("Course Code: " + course.getCourseCode());
+        System.out.println("Course Title: " + course.getCourseTitle());
+        System.out.println("Section: " + section);
+        System.out.println("Day: " + day);
+        System.out.println("Time: " + time);
+        System.out.println("Room: " + room);
 
-        System.out.println("Schedule added successfully.");
+        System.out.print("\nDo you want to add this schedule? (Y/N): ");
+String confirmation = getInput().toUpperCase();
+if (confirmation.equals("Y")) {
+    Schedule schedule = new Schedule(course, section, day, time, room);
+    schedules.add(schedule);
+    writeScheduleToFile(schedule);
+    System.out.println("Schedule added successfully.");
+    pauseScreen();
+} else {
+    System.out.println("Schedule addition canceled.");
+    pauseScreen();
+}
     }
 
     private static boolean isDuplicateSchedule(Course course) {
@@ -152,67 +190,116 @@ public class ScheduleManagementMenu {
 
     private static void viewSchedules() {
     if (schedules.isEmpty()) {
+        clearScreen();
         System.out.println("No schedules found.");
+        pauseScreen();
     } else {
+        clearScreen();
         System.out.println("\nSchedule List:");
+        System.out.println(" ");
         for (Schedule schedule : schedules) {
-            System.out.println(formatScheduleString(schedule));
+            System.out.println(schedule.getCourse().getCourseTitle() + " - " + schedule.getCourse().getCourseCode());
+            System.out.println(schedule.getSection());
+            System.out.println(schedule.getRoom());
+            System.out.println(schedule.getDay());
+            System.out.println(schedule.getTime());
+            System.out.println(" ");
         }
     }
 }
 
 private static String formatScheduleString(Schedule schedule) {
-    return schedule.getCourse().getCourseCode() + " | " +
-           schedule.getSection() + " | " +
-           schedule.getDay() + " | " +
-           schedule.getTime() + " | " +
+    return schedule.getCourse().getCourseTitle() + " (" +
+           schedule.getCourse().getCourseCode() + ") - " +
+           schedule.getSection() + " - " +
+           schedule.getDay() + " - " +
+           schedule.getTime() + " - " +
            schedule.getRoom();
 }
 
 
-private static void editSchedule() {
-    System.out.print("Enter course code to edit schedule: ");
-    String courseCode = getCourseCodeInput();
 
-    Course course = findCourseByCode(courseCode);
-    if (course == null) {
-        System.out.println("Course with code " + courseCode + " not found.");
-        return;
-    }
+private static void editSchedule() {
+    clearScreen();
+    viewSchedules();
+
+    String courseCode;
+    Course course;
+    do {
+        System.out.print("Enter course code to edit schedule: ");
+        courseCode = getCourseCodeInput();
+
+        course = findCourseByCode(courseCode);
+        if (course == null) {
+            clearScreen();
+            System.out.println("Course with code " + courseCode + " not found.");
+            pauseScreen();
+            continue;
+        }
+        clearScreen();
+        System.out.println("Course: " + course.getCourseTitle() + " (" + course.getCourseCode() + ")");
+        System.out.print("Is this the correct course? (Y/N): ");
+        String confirmation = getInput().toUpperCase();
+        if (confirmation.equals("Y")) {
+            break;
+        }
+    } while (true);
 
     Schedule schedule = findScheduleByCourse(course);
     if (schedule == null) {
+        clearScreen();
         System.out.println("Schedule for course " + courseCode + " not found.");
+        pauseScreen();
         return;
     }
 
     System.out.print("Enter new section (" + schedule.getSection() + "): ");
-    String section = getInput();
-    if (!section.isEmpty()) {
-        schedule.setSection(section);
-    }
+    String newSection = getInput();
 
     System.out.print("Enter new day (" + schedule.getDay() + "): ");
-    String day = getInput();
-    if (!day.isEmpty()) {
-        schedule.setDay(day);
-    }
+    String newDay = getInput();
 
     System.out.print("Enter new time (" + schedule.getTime() + "): ");
-    String time = getInput();
-    if (!time.isEmpty()) {
-        schedule.setTime(time);
-    }
+    String newTime = getInput();
 
     System.out.print("Enter new room (" + schedule.getRoom() + "): ");
-    String room = getInput();
-    if (!room.isEmpty()) {
-        schedule.setRoom(room);
-    }
+    String newRoom = getInput();
 
-    writeScheduleToFile(schedule);
-    System.out.println("Schedule information updated successfully.");
+    System.out.println("\nNew Schedule:");
+    System.out.println("Course: " + course.getCourseTitle() + " (" + course.getCourseCode() + ")");
+    System.out.println("Section: " + (newSection.isEmpty() ? schedule.getSection() : newSection));
+    System.out.println("Day: " + (newDay.isEmpty() ? schedule.getDay() : newDay));
+    System.out.println("Time: " + (newTime.isEmpty() ? schedule.getTime() : newTime));
+    System.out.println("Room: " + (newRoom.isEmpty() ? schedule.getRoom() : newRoom));
+
+    System.out.print("\nDo you want to update the schedule? (Y/N): ");
+    String confirmation = getInput().toUpperCase();
+    if (confirmation.equals("Y")) {
+        if (!newSection.isEmpty()) {
+            schedule.setSection(newSection);
+        }
+        if (!newDay.isEmpty()) {
+            schedule.setDay(newDay);
+        }
+        if (!newTime.isEmpty()) {
+            schedule.setTime(newTime);
+        }
+        if (!newRoom.isEmpty()) {
+            schedule.setRoom(newRoom);
+        }
+
+        writeScheduleToFile(schedule);
+        System.out.println("Schedule information updated successfully.");
+        pauseScreen();
+        clearScreen();
+    } else {
+        System.out.println("Schedule update canceled.");
+        pauseScreen();
+    }
 }
+
+
+
 
 
     private static Schedule findScheduleByCourse(Course course) {
@@ -225,25 +312,51 @@ private static void editSchedule() {
     }
 
     private static void deleteSchedule() {
+        clearScreen();
+        viewSchedules();
         System.out.print("Enter course code to delete schedule: ");
         String courseCode = getCourseCodeInput();
-
+    
         Course course = findCourseByCode(courseCode);
         if (course == null) {
+            clearScreen();
             System.out.println("Course with code " + courseCode + " not found.");
+            pauseScreen();
             return;
         }
-
+    
         Schedule schedule = findScheduleByCourse(course);
         if (schedule == null) {
+            clearScreen();
             System.out.println("Schedule for course " + courseCode + " not found.");
+            pauseScreen();
             return;
         }
+    
 
-        schedules.remove(schedule);
-        writeSchedulesToFile();
-        System.out.println("Schedule deleted successfully.");
+        clearScreen();
+        System.out.println("\nSchedule to be deleted:");
+        System.out.println("Course: " + course.getCourseTitle() + " (" + course.getCourseCode() + ")");
+        System.out.println("Section: " + schedule.getSection());
+        System.out.println("Day: " + schedule.getDay());
+        System.out.println("Time: " + schedule.getTime());
+        System.out.println("Room: " + schedule.getRoom());
+    
+        System.out.print("\nAre you sure you want to delete this schedule? (Y/N): ");
+        String confirmation = getInput().toUpperCase();
+    
+        if (confirmation.equals("Y")) {
+            schedules.remove(schedule);
+            writeSchedulesToFile();
+            System.out.println("Schedule deleted successfully.");
+            pauseScreen();
+        } else {
+            clearScreen();
+            System.out.println("Schedule deletion canceled.");
+            pauseScreen();
+        }
     }
+    
 
     private static Course findCourseByCode(String courseCode) {
         for (Course course : courses) {
@@ -317,9 +430,9 @@ private static void editSchedule() {
             for (Course course : courses) {
                 Schedule schedule = findScheduleByCourse(course);
                 String scheduleInfo = (schedule != null) ? formatScheduleString(schedule) : "No Added Schedule Yet";
-    
-                System.out.println("Course Code: " + course.getCourseCode());
-                System.out.println("Course Title: " + course.getCourseTitle());
+
+                System.out.println(course.getCourseTitle());
+                System.out.println(course.getCourseCode());
                 System.out.println("Units: " + course.getUnits());
                 System.out.println("Year Level: " + course.getYearLevel());
                 System.out.println("Schedule: " + scheduleInfo);

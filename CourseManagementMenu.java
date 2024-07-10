@@ -13,6 +13,7 @@ public class CourseManagementMenu {
         clearScreen();
         boolean exit = false;
         while (!exit) {
+            clearScreen();
         System.out.println(" ______________________________________________");
         System.out.println("|            ┏┓  ┏┓  ┳┳  ┳┓  ┏┓  ┏┓            |");
         System.out.println("|            ┃   ┃┃  ┃┃  ┣┫  ┗┓  ┣             |");
@@ -29,6 +30,7 @@ public class CourseManagementMenu {
         System.out.println("|                                              |");
         System.out.println("|                  [5] Exit                    |");
         System.out.println("|______________________________________________|");
+        System.out.println("Enter your choice: ");
         int choice = getIntInput();
 
             switch (choice) {
@@ -37,6 +39,7 @@ public class CourseManagementMenu {
                     break;
                 case 2:
                     viewCourses();
+                    pauseScreen();
                     break;
                 case 3:
                     editCourse();
@@ -74,29 +77,65 @@ public class CourseManagementMenu {
     }
 
     private static void addCourse() {
+        clearScreen();
         System.out.print("Enter course code (3 letters followed by 3 digits): ");
         String courseCode = getCourseCodeInput();
-
+    
         if (isDuplicateCourse(courseCode)) {
+            clearScreen();
             System.out.println("Course with code " + courseCode + " already exists.");
+            pauseScreen();
             return;
         }
-
+        clearScreen();
+        System.out.println("Course code: " + courseCode);
         System.out.print("Enter course title: ");
         String courseTitle = getInput();
-
+    
+        clearScreen();
+        System.out.println("Course code: " + courseCode);
+        System.out.println("Course title: " + courseTitle);
         System.out.print("Enter number of units: ");
         int units = getIntInput();
-
+    
+        clearScreen();
+        System.out.println("Course code: " + courseCode);
+        System.out.println("Course title: " + courseTitle);
+        System.out.println("Course units: " + units);
         System.out.print("Enter year level: ");
         int yearLevel = getIntInput();
-
-        Course course = new Course(courseCode, courseTitle, units, yearLevel);
-        courses.add(course);
-        writeCourseToFile(course);
-
-        System.out.println("Course added successfully.");
+    
+        clearScreen();
+        System.out.println("\nConfirm Course Details:");
+        System.out.println("Course Code: " + courseCode);
+        System.out.println("Course Title: " + courseTitle);
+        System.out.println("Number of Units: " + units);
+        System.out.println("Year Level: " + yearLevel);
+    
+        System.out.print("Do you want to save this course? (Y/N): ");
+        String choice = getInput().toUpperCase();
+    
+        if (choice.equals("Y")) {
+            clearScreen();
+            Course course = new Course(courseCode, courseTitle, units, yearLevel);
+            courses.add(course);
+            writeCourseToFile(course);
+            System.out.println("Course Code: " + courseCode);
+            System.out.println("Course Title: " + courseTitle);
+            System.out.println("Number of Units: " + units);
+            System.out.println("Year Level: " + yearLevel);
+            System.out.println("Course added successfully.");
+            pauseScreen();
+            
+        } else {
+            clearScreen();
+            System.out.println("Course not added.");
+            pauseScreen();
+        }
     }
+    
+    
+    
 
     private static boolean isDuplicateCourse(String courseCode) {
         for (Course course : courses) {
@@ -108,47 +147,106 @@ public class CourseManagementMenu {
     }
 
     private static void viewCourses() {
+        clearScreen();
         if (courses.isEmpty()) {
             System.out.println("No courses found.");
         } else {
             System.out.println("\nCourse List:");
+            System.out.println(" ");
+    
             for (Course course : courses) {
-                System.out.println(course);
+                System.out.println(course.getCourseTitle());
+                System.out.println(course.getCourseCode());
+                System.out.println("Units: " + course.getUnits());
+                System.out.println("Year Level: " + course.getYearLevel());
+                System.out.println();
             }
         }
     }
+    
+    
+    
 
     private static void editCourse() {
+        viewCourses();
         System.out.print("Enter course code to edit: ");
         String courseCode = getCourseCodeInput();
-
+    
         Course course = findCourseByCode(courseCode);
         if (course == null) {
+            clearScreen();
             System.out.println("Course with code " + courseCode + " not found.");
+            pauseScreen();
             return;
         }
+    
+        String originalCourseTitle = course.getCourseTitle();
+        int originalUnits = course.getUnits();
+        int originalYearLevel = course.getYearLevel();
+    
+        String courseTitle;
+        do {
+            clearScreen();
+            System.out.println( courseCode );
+            System.out.println("Original Course Title: " + originalCourseTitle);
+            System.out.print("Enter new course title: ");
+            courseTitle = getInput();
+            if (courseTitle.isEmpty()) {
+                System.out.println("Course title cannot be blank. Please try again.");
+            }
+        } while (courseTitle.isEmpty());
+    
+        int units;
+        do {
+            clearScreen();
+            System.out.println( courseCode );
+            System.out.println("New Course Title: " + courseTitle);
+            System.out.println("Original Units: " + originalUnits);
+            System.out.print("Enter new number of units: ");
+            units = getIntInput();
+            if (units == 0) {
+                System.out.println("Number of units cannot be zero. Please try again.");
+            }
+        } while (units == 0);
+    
+        int yearLevel;
+        do {
+            clearScreen();
+            System.out.println( courseCode );
+            System.out.println("New Course Title: " + courseTitle);
+            System.out.println("New Units: " + units);
+            System.out.println("Original Year Level: " + originalYearLevel);
+            System.out.print("Enter new year level: ");
+            yearLevel = getIntInput();
+            if (yearLevel == 0) {
+                System.out.println("Year level cannot be zero. Please try again.");
+            }
+        } while (yearLevel == 0);
+    
 
-        System.out.print("Enter new course title (" + course.getCourseTitle() + "): ");
-        String courseTitle = getInput();
-        if (!courseTitle.isEmpty()) {
+        clearScreen();
+        System.out.println( courseCode );
+        System.out.println("New Course Title: " + courseTitle);
+        System.out.println("New Units: " + units);
+        System.out.println("New Year Level: " + yearLevel);
+    
+        System.out.print("\nDo you want to save these changes? (Y/N): ");
+        String confirmation = getInput().toUpperCase();
+        if (confirmation.equals("Y")) {
             course.setCourseTitle(courseTitle);
-        }
-
-        System.out.print("Enter new number of units (" + course.getUnits() + "): ");
-        int units = getIntInput();
-        if (units != 0) {
             course.setUnits(units);
-        }
-
-        System.out.print("Enter new year level (" + course.getYearLevel() + "): ");
-        int yearLevel = getIntInput();
-        if (yearLevel != 0) {
             course.setYearLevel(yearLevel);
+            writeCoursesToFile();
+            System.out.println("Course information updated successfully.");
+            pauseScreen();
+        } else {
+            System.out.println("Changes discarded.");
+            pauseScreen();
         }
-
-        writeCoursesToFile();
-        System.out.println("Course information updated successfully.");
     }
+    
+    
+    
 
     private static Course findCourseByCode(String courseCode) {
         for (Course course : courses) {
@@ -160,19 +258,38 @@ public class CourseManagementMenu {
     }
 
     private static void deleteCourse() {
+        clearScreen();
+        viewCourses();
         System.out.print("Enter course code to delete: ");
         String courseCode = getCourseCodeInput();
-
+    
         Course course = findCourseByCode(courseCode);
         if (course == null) {
             System.out.println("Course with code " + courseCode + " not found.");
-            return;
+            pauseScreen();
+            deleteCourse();
         }
-
-        courses.remove(course);
-        writeCoursesToFile();
-        System.out.println("Course deleted successfully.");
+    
+        clearScreen();
+        System.out.println("\nCourse to be deleted:");
+        System.out.println("Course Code: " + course.getCourseCode());
+        System.out.println("Course Title: " + course.getCourseTitle());
+        System.out.println("Units: " + course.getUnits());
+        System.out.println("Year Level: " + course.getYearLevel());
+    
+        System.out.print("\nAre you sure you want to delete this course? (Y/N): ");
+        String confirmation = getInput().toUpperCase();
+        if (confirmation.equals("Y")) {
+            courses.remove(course);
+            writeCoursesToFile();
+            System.out.println("Course deleted successfully.");
+        } else {
+            clearScreen();
+            System.out.println("Course deletion canceled.");
+        }
+        pauseScreen();
     }
+    
 
     private static String getInput() {
         String input = scanner.nextLine().trim();
@@ -223,6 +340,15 @@ public class CourseManagementMenu {
         }
     }
 
+    private static void pauseScreen() {
+        System.out.println("Press Enter to continue...");
+        try {
+            System.in.read();
+        } catch (Exception e) {
+
+        }
+    }
+
     static class Course {
         private String courseCode;
         private String courseTitle;
@@ -266,7 +392,7 @@ public class CourseManagementMenu {
     
         @Override
         public String toString() {
-            return courseCode + " - " + courseTitle + " - " + units + " - " + yearLevel;
+            return courseCode + "," + courseTitle + "," + units + "," + yearLevel;
         }
     }
     

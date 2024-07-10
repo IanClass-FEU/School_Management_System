@@ -102,16 +102,22 @@ public class ScheduleManagementMenu {
     }
 
     private static void addSchedule() {
+        clearScreen();
+        viewCoursesWithSchedules();
         System.out.print("Enter course code (3 letters followed by 3 digits): ");
         String courseCode = getCourseCodeInput();
 
         Course course = findCourseByCode(courseCode);
         if (course == null) {
-            System.out.println("Course with code " + courseCode + " not found.");
+            clearScreen();
+            viewCoursesWithSchedules();
+            System.out.println("Course with code " + courseCode + " not found. Try Again");
             return;
         }
 
         if (isDuplicateSchedule(course)) {
+            clearScreen();
+            viewCoursesWithSchedules();
             System.out.println("Schedule for course " + courseCode + " already exists.");
             return;
         }
@@ -300,6 +306,43 @@ private static void editSchedule() {
             }
         } catch (IOException e) {
             System.out.println("Error writing to schedules file: " + e.getMessage());
+        }
+    }
+
+    private static void viewCoursesWithSchedules() {
+        if (courses.isEmpty()) {
+            System.out.println("No courses found.");
+        } else {
+            System.out.println("\nCourses and Schedules:");
+            for (Course course : courses) {
+                Schedule schedule = findScheduleByCourse(course);
+                String scheduleInfo = (schedule != null) ? formatScheduleString(schedule) : "No Added Schedule Yet";
+    
+                System.out.println("Course Code: " + course.getCourseCode());
+                System.out.println("Course Title: " + course.getCourseTitle());
+                System.out.println("Units: " + course.getUnits());
+                System.out.println("Year Level: " + course.getYearLevel());
+                System.out.println("Schedule: " + scheduleInfo);
+                System.out.println();
+            }
+        }
+    }
+    
+
+    private static void clearScreen() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+
+        }
+    }
+
+    private static void pauseScreen() {
+        System.out.println("Press Enter to continue...");
+        try {
+            System.in.read();
+        } catch (Exception e) {
+
         }
     }
 

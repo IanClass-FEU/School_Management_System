@@ -92,6 +92,11 @@ pauseScreen();
                 System.out.println("Are you sure you want to exit the program? (y/n)");
                 String confirmation = scanner.nextLine();
                 if (confirmation.equalsIgnoreCase("y")) {
+                    clearScreen();
+                    System.out.println("Javawockeez School Management System");
+                    System.out.println("     Tamayo, Ian Rey Angelo");
+                    System.out.println("        Andrade, Kyla Mae");
+                    System.out.println("         Calda, Johann");
                     System.out.println("Exiting program...");
                     System.exit(0);
                 } if (confirmation.equalsIgnoreCase("n")){

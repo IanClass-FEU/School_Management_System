@@ -109,11 +109,15 @@ public class EnrollmentSystem {
             Student student = findStudent(input);
     
             if (student == null) {
+                clearScreen();
+                viewUnenrolledStudents();
                 System.out.println("Student not found.");
                 continue; // Skip to the next iteration of the loop
             }
     
             if (enrolledStudents.contains(student)) {
+                clearScreen();
+                viewEnrollees();
                 System.out.println("Student is already enrolled.");
                 continue; // Skip to the next iteration of the loop
             }
@@ -138,6 +142,9 @@ public class EnrollmentSystem {
                 }
             }
     
+            clearScreen();
+
+
             System.out.println("Available courses for Year " + student.getYearLevel() + ":");
             System.out.printf("%-10s %-30s %s%n", "Code", "Name", "Units");
             System.out.println("-----------------------------------");

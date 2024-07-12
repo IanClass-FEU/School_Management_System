@@ -80,6 +80,7 @@ public class EnrollmentSystem {
 
             switch (choice) {
                 case 1:
+                viewUnenrolledStudents();
                     enrollStudent(scanner);
                     break;
                 case 2:
@@ -239,6 +240,32 @@ public class EnrollmentSystem {
     
         pauseScreen();
     }
+
+    private static void viewUnenrolledStudents() {
+        clearScreen();
+        System.out.println("\nList of Unenrolled Students:");
+    
+        // Create a Set to store unique students
+        Set<Student> unenrolledStudents = new HashSet<>(students);
+        unenrolledStudents.removeAll(enrolledStudents);
+    
+        // Remove any duplicate entries from the unenrolledStudents set
+        unenrolledStudents = new HashSet<>(unenrolledStudents);
+    
+        if (unenrolledStudents.isEmpty()) {
+            System.out.println("All students are currently enrolled.");
+        } else {
+            for (Student student : unenrolledStudents) {
+                System.out.println("Student: " + student.getId() + " - " + student.getName() + ", Year Level: " + student.getYearLevel());
+            }
+        }
+    
+        System.out.println();
+    }
+    
+    
+    
+    
     
 
     private static void saveEnrollees() {

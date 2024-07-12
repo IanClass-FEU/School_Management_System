@@ -1,4 +1,4 @@
-123456,tam,nai,s,M,2003-09-08,12 adsda,BSIT-CST,1
-654321,adsdas,sadd,adsa,M,2003-09-07,adsada,dasda,1
-234567,ala,ka,ka,M,2003-09-08,kkkkkkk,BSIT-CST,2
-345678,adkas,dsadsa,sdada,M,2003-09-07,asdasd,adds,2
+123456,tam,nai,s,M,2003-09-08,12 11 MC,BSIT-CST,1
+654321,adsdas,sadd,adsa,M,2003-09-07,SANTOL,BSIT-CST,1
+234567,ala,ka,ka,M,2003-09-08,Manila,BSIT-CST,2
+345678,adkas,dsadsa,sdada,M,2003-09-07,Cavite,BSIT CST,2

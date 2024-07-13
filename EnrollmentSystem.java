@@ -103,7 +103,7 @@ public class EnrollmentSystem {
             String input = scanner.nextLine();
     
             if (input.equalsIgnoreCase("q")) {
-                return; // Exit the method and return to the main menu
+                return;
             }
     
             Student student = findStudent(input);
@@ -112,17 +112,17 @@ public class EnrollmentSystem {
                 clearScreen();
                 viewUnenrolledStudents();
                 System.out.println("Student not found.");
-                continue; // Skip to the next iteration of the loop
+                continue;
             }
     
             if (enrolledStudents.contains(student)) {
                 clearScreen();
                 viewEnrollees();
                 System.out.println("Student is already enrolled.");
-                continue; // Skip to the next iteration of the loop
+                continue;
             }
     
-            // Create a List to store unique courses
+
             List<Course> availableCourses = new ArrayList<>();
     
             for (Course course : courses) {
@@ -135,7 +135,6 @@ public class EnrollmentSystem {
                         }
                     }
     
-                    // Add the course to the list if it's not a duplicate
                     if (!isDuplicate) {
                         availableCourses.add(course);
                     }
@@ -161,7 +160,7 @@ public class EnrollmentSystem {
                 String courseCode = scanner.nextLine();
     
                 if (courseCode.equalsIgnoreCase("q")) {
-                    continueEnrollment = false; // Exit the outer loop and return to the main menu
+                    continueEnrollment = false;
                     break;
                 } else if (courseCode.equalsIgnoreCase("s")) {
                     enrolledStudents.add(student);
@@ -233,7 +232,6 @@ public class EnrollmentSystem {
         clearScreen();
         System.out.println("\nList of Enrollees:");
     
-        // Create a Set to store unique students
         Set<Student> uniqueStudents = new HashSet<>(enrolledStudents);
     
         for (Student student : uniqueStudents) {
@@ -252,11 +250,9 @@ public class EnrollmentSystem {
         clearScreen();
         System.out.println("\nList of Unenrolled Students:");
     
-        // Create a Set to store unique students
         Set<Student> unenrolledStudents = new HashSet<>(students);
         unenrolledStudents.removeAll(enrolledStudents);
     
-        // Remove any duplicate entries from the unenrolledStudents set
         unenrolledStudents = new HashSet<>(unenrolledStudents);
     
         if (unenrolledStudents.isEmpty()) {
@@ -269,11 +265,6 @@ public class EnrollmentSystem {
     
         System.out.println();
     }
-    
-    
-    
-    
-    
 
     private static void saveEnrollees() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("enrollees.txt"))) {

@@ -63,7 +63,7 @@ pauseScreen();
         System.out.println("|          School Management System            |");
         System.out.println("|______________________________________________|");
         System.out.println("|                                              |");
-        System.out.println("|       [1] Enrolment     [2] Student          |");
+        System.out.println("|       [1] Enrollment    [2] Student          |");
         System.out.println("|                                              |");
         System.out.println("|       [3] Schedule      [4] Course           |");
         System.out.println("|                                              |");
@@ -89,6 +89,7 @@ pauseScreen();
                 CourseManagementMenu.courseManagementMenu();
                 break;
             case 5:
+            clearScreen();
                 System.out.println("Are you sure you want to exit the program? (y/n)");
                 String confirmation = scanner.nextLine();
                 if (confirmation.equalsIgnoreCase("y")) {
@@ -97,7 +98,6 @@ pauseScreen();
                     System.out.println("     Tamayo, Ian Rey Angelo");
                     System.out.println("        Andrade, Kyla Mae");
                     System.out.println("         Calda, Johann");
-                    System.out.println("Exiting program...");
                     System.exit(0);
                 } if (confirmation.equalsIgnoreCase("n")){
                     clearScreen();

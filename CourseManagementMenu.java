@@ -245,9 +245,6 @@ public class CourseManagementMenu {
         }
     }
     
-    
-    
-
     private static Course findCourseByCode(String courseCode) {
         for (Course course : courses) {
             if (course.getCourseCode().equals(courseCode)) {

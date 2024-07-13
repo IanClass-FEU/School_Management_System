@@ -173,6 +173,7 @@ if (confirmation.equals("Y")) {
     writeScheduleToFile(schedule);
     System.out.println("Schedule added successfully.");
     pauseScreen();
+    clearScreen();
 } else {
     System.out.println("Schedule addition canceled.");
     pauseScreen();

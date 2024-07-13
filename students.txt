@@ -1,4 +1,6 @@
-123456,tam,nai,s,M,2003-09-08,12 11 MC,BSIT-CST,1
-654321,adsdas,sadd,adsa,M,2003-09-07,SANTOL,BSIT-CST,1
-234567,ala,ka,ka,M,2003-09-08,Manila,BSIT-CST,2
-345678,adkas,dsadsa,sdada,M,2003-09-07,Cavite,BSIT CST,2
+123456,Tamayo,Ian Rey Angelo,S,M,2003-09-05,Taytay Rizal,BSIT-CST,1
+789012,Garcia,Maria Isabela,F,F,2002-03-21,Marikina City,BSCS,2
+345678,Reyes,Juan Carlos,M,M,2001-11-09,Pasig City,BSIT-CST,3
+901234,Dela Cruz,Ana Patricia,S,F,2003-06-15,Mandaluyong City,BSCS,1
+567890,Santos,Jose Miguel,P,M,2002-08-27,Taguig City,BSIT-CST,4
+123789,Bautista,Samantha Nicole,T,F,2001-02-03,Makati City,BSCS,2

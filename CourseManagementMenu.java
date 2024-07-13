@@ -381,21 +381,20 @@ public class CourseManagementMenu {
         public void setUnits(int units) {
             this.units = units;
         }
-    
+
         public int getYearLevel() {
             return yearLevel;
         }
-    
+
         public void setYearLevel(int yearLevel) {
             this.yearLevel = yearLevel;
         }
-    
+
         @Override
         public String toString() {
             return courseCode + "," + courseTitle + "," + units + "," + yearLevel;
         }
     }
-    
 
     public static void main(String[] args) {
         courseManagementMenu();

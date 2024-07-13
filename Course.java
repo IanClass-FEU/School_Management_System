@@ -11,7 +11,6 @@ public class Course {
         this.yearLevel = yearLevel;
     }
 
-    // Getters and setters (if needed)
     public String getCode() {
         return code;
     }

@@ -112,7 +112,7 @@ public class StudentManagementMenu {
         System.out.println(" ID              " + id);
         System.out.println(" Last Name       " + lastName);
         System.out.println(" First Name      " + firstName);
-        System.out.print("Enter middle name: ");
+        System.out.print("Enter middle initials: ");
         String middleName = getNameInput();
     
         clearScreen();
@@ -120,7 +120,7 @@ public class StudentManagementMenu {
         System.out.println(" ID              " + id);
         System.out.println(" Last Name       " + lastName);
         System.out.println(" First Name      " + firstName);
-        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Middle Initial     " + middleName);
         System.out.print("Enter gender (M/F): ");
         String gender = getGenderInput();
     
@@ -129,7 +129,7 @@ public class StudentManagementMenu {
         System.out.println(" ID              " + id);
         System.out.println(" Last Name       " + lastName);
         System.out.println(" First Name      " + firstName);
-        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Middle Initial     " + middleName);
         System.out.println(" Gender          " + gender);
         System.out.print("Enter birthday (yyyy-MM-dd): ");
         String birthdayStr = getInput();
@@ -143,7 +143,7 @@ public class StudentManagementMenu {
         System.out.println(" ID              " + id);
         System.out.println(" Last Name       " + lastName);
         System.out.println(" First Name      " + firstName);
-        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Middle Initial     " + middleName);
         System.out.println(" Gender          " + gender);
         System.out.println(" Birthdate       " + birthdayStr);
         System.out.print("Enter address: ");
@@ -154,7 +154,7 @@ public class StudentManagementMenu {
         System.out.println(" ID              " + id);
         System.out.println(" Last Name       " + lastName);
         System.out.println(" First Name      " + firstName);
-        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Middle Initial     " + middleName);
         System.out.println(" Gender          " + gender);
         System.out.println(" Birthdate       " + birthdayStr);
         System.out.println(" Address         " + address);
@@ -167,7 +167,7 @@ public class StudentManagementMenu {
         System.out.println(" ID              " + id);
         System.out.println(" Last Name       " + lastName);
         System.out.println(" First Name      " + firstName);
-        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Middle Initial     " + middleName);
         System.out.println(" Gender          " + gender);
         System.out.println(" Birthdate       " + birthdayStr);
         System.out.println(" Address         " + address);
@@ -181,7 +181,7 @@ public class StudentManagementMenu {
         System.out.println(" ID              " + id);
         System.out.println(" Last Name       " + lastName);
         System.out.println(" First Name      " + firstName);
-        System.out.println(" Middle Name     " + middleName);
+        System.out.println(" Middle Initial     " + middleName);
         System.out.println(" Gender          " + gender);
         System.out.println(" Birthdate       " + birthdayStr);
         System.out.println(" Address         " + address);
@@ -228,18 +228,25 @@ public class StudentManagementMenu {
             System.out.println("________________________________");
             int maxIdLength = "ID Number".length();
             int maxNameLength = "Full Name".length();
+            int maxDegreeProgramLength = "Degree Program".length();
+            int maxYearLevelLength = "Year Level".length();
             for (Student student : students) {
                 maxIdLength = Math.max(maxIdLength, student.getId().length());
                 maxNameLength = Math.max(maxNameLength, student.getFullName().length());
+                maxYearLevelLength = Math.max(maxYearLevelLength, String.valueOf(student.getYearLevel()).length());
             }
-
+    
+            System.out.printf("%-" + (maxIdLength + 2) + "s %-" + (maxNameLength + 2) + "s %-" + (maxDegreeProgramLength + 2) + "s %-" + (maxYearLevelLength + 2) + "s%n", "ID Number", "Full Name", "Degree Program", "Year Level");
+            System.out.println("______________________________________________________________________________");
+    
             for (Student student : students) {
-                System.out.printf("%-" + (maxIdLength + 2) + "s %-" + (maxNameLength + 2) + "s%n", student.getId(), student.getFullName());
-                System.out.println("________________________________");
+                System.out.printf("%-" + (maxIdLength + 2) + "s %-" + (maxNameLength + 2) + "s %-" + (maxDegreeProgramLength + 2) + "s %-" + (maxYearLevelLength + 2) + "d%n", student.getId(), student.getFullName(), student.getDegreeProgram(), student.getYearLevel());
             }
+            System.out.println("______________________________________________________________________________");
         }
         pauseScreen();
     }
+    
 
     private static void editStudent() {
         clearScreen();

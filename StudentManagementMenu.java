@@ -86,11 +86,13 @@ public class StudentManagementMenu {
     
         if (!isValidStudentId(id)) {
             System.out.println("Invalid student ID. The ID must be a 6-digit number.");
+            pauseScreen();
             return;
         }
     
         if (isDuplicateStudent(id)) {
             System.out.println("Student with ID " + id + " already exists.");
+            pauseScreen();
             return;
         }
     

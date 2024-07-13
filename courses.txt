@@ -4,9 +4,9 @@ CSC103,Introduction to Computer Science,1,1
 ENG201,World Literature,2,2
 MAT202,Calculus I,3,2
 CSC203,Data Structures and Algorithms,1,2
-ENG301,Technical Writing,1,3
+ENG301,English Technical Writing,2,3
 MAT302,Probability and Statistics,2,3
 CSC303,Computer Architecture,3,3
 ENG401,Advanced Composition,2,4
 MAT402,Linear Algebra,1,4
-CSC403,Operating Systems,3,4
+ACT101,Introduction to Acting,2,1

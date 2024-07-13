@@ -51,7 +51,9 @@ public class CourseManagementMenu {
                     exit = true;
                     break;
                 default:
+                clearScreen();
                     System.out.println("Invalid choice. Please try again.");
+                    pauseScreen();
             }
         }
     }
